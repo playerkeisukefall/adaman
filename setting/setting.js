@@ -10,4 +10,5 @@ function post(){
     console.log(err);
   });
   fs.writeFileSync(server_url_path, server_url);
+  location.href = path.join(__dirname, "../title/title.html");
 }

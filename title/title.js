@@ -20,7 +20,7 @@ window.onload = function() {
         arrow.on('enterframe', function(){
           if (game.input.up) this.y -= 50;
           if (game.input.down) this.y += 50;
-          if (game.input.space) location.href = "../index.html";
+          if (game.input.space) location.href = "../battle/battle.html";
         });
 
 

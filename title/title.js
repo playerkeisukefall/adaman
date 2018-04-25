@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 function isExistFile(file) {
   try {
     fs.statSync(file);
@@ -62,7 +63,7 @@ window.onload = function() {
               if(this.y == 450)location.href = "../battle/battle.html";
               // 通信対戦
               if(this.y == 500){
-                if(isExistFile("../register/user_info.csv") == false)location.href = "../register/register.html"; // ユーザ名ファイルが存在しない
+                if(isExistFile(path.join(__dirname, "../info/user_info.csv")) == false)location.href = "../register/register.html"; // ユーザ名ファイルが存在しない
                 else location.href = "../matching/matching.html"; // ユーザ名ファイルがある
               }
             }

@@ -1,3 +1,5 @@
+const path = require("path");
+
 function return_to_title(){
-  location.href = "../title/title.html";
+  location.href = path.join(__dirname, "../title/title.html");
 }

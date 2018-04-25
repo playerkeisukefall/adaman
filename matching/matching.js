@@ -1,5 +1,11 @@
-let server = "http://localhost:8080";
-var socket = io('http://localhost:8080');
+const path = require("path");
+const fs = require("fs");
+const client = require("socket.io-client");
+
+const server_path = path.join(__dirname, "../info/server_url.txt");
+const server_url = fs.readFileSync(server_path, "utf-8");
+const socket = client.connect(server_url);
+
 socket.on('news', function (data) {
   // サーバから受け取ったデータを出力する
   console.log(data);

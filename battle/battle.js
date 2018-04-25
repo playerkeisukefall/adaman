@@ -31,6 +31,7 @@ window.onload = function() {
 
     game.onload = function() { //準備が整ったら
       game.keybind(32, 'space');
+      game.keybind(27, 'esc');
         // left_bar & right_bar
         left_bar = new Sprite(100, 600);
         left_bar.x = 0;

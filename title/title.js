@@ -67,7 +67,7 @@ window.onload = function() {
             }
             if (game.input.space) {
               // シングル対戦
-              if(this.y == 450)location.href = "../battle/battle.html";
+              if(this.y == 450)location.href = "../single_battle/single_battle.html";
               // 通信対戦
               if(this.y == 500){
                 if(isExistFile(path.join(__dirname, "../info/user_info.csv")) == false)location.href = "../register/register.html"; // ユーザ名ファイルが存在しない

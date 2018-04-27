@@ -11,7 +11,7 @@ const power = Number(status_data[0][0]) + 4; // 5 ~ 14
 const speed = Number(status_data[0][1]) + 4; // 6 ~ 24
 const b_speed = Number(status_data[0][2])*2 + 4; // 6 ~ 24
 const interval = 45 - Number(status_data[0][3])*3; // 42 ~ 15
-const hp = Number(status_data[0][4])*3; // 10 ~ 30
+const hp = Number(status_data[0][4])*6 + 24; // 30 ~ 84
 
 const window_width = 800;
 const window_height = 600;
@@ -40,7 +40,6 @@ let shot_available = {
   S: true,
   D: true
 };
-console.log(shot_available)
 
 
 // 弾の設定
@@ -74,7 +73,7 @@ function update_bullet(){
   }
 }
 
-function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}){
+function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}, power=0){
   let sprite = new Sprite(size.w, size.h);
   sprite.x = pos.x;
   sprite.y = pos.y;

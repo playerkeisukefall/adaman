@@ -61,9 +61,11 @@ setInterval(function(){
 }, 1000);
 socket.on("room_info", function(data){
   player_arr = rm_myself(data.player_arr);
-  if(player_arr.length >= 1) status = "battle_available";
-  else status = "waiting";
-  console.log(player_arr);
+  if(player_arr.length >= 1 && status != "ready") status = "battle_available";
+  else if(status != "ready") {
+    status = "waiting";
+    console.log(player_arr);
+  }
 });
 // *****************************************************************
 
@@ -93,9 +95,18 @@ function show(){
         let str_forHTML = "対戦相手を見つけました!!<br>";
         for(let i=0; i<player_arr.length; i++){
           str_forHTML += " ＊ " + player_arr[i].user_name + " ";
-          str_forHTML += '<input type="button" value="対戦する" onclick="battle('+ player_arr[i].user_id + ')">';
+          str_forHTML += '<input type="button" value="対戦する" onclick="ready('+ player_arr[i].user_id + ')">';
           str_forHTML += "<br>";
         }
+        document.getElementById('show').innerHTML = str_forHTML;
+      }
+
+      if(status == "ready"){
+        let str_forHTML = "";
+        str_forHTML += "対戦準備中";
+        str_forHTML += dots[i];
+        i += 1;
+        if(i == 3) i = 0;
         document.getElementById('show').innerHTML = str_forHTML;
       }
     }
@@ -104,7 +115,15 @@ function show(){
 }
 // *****************************************************************
 
-//
-function battle(opponent_id){
+// 対戦準備中
+function ready(opponent_id){
   console.log(opponent_id);
+  status = "ready";
+  setInterval(function(){
+    socket.emit("ready", {user_id: user_id, opponent_id: opponent_id});
+  }, 1000);
+  socket.on("lets_battle", function(data){
+    console.log(data);
+  })
+  //location.href = "../multi_battle/battle.html";
 }

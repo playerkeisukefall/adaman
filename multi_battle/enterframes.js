@@ -43,6 +43,7 @@ let power_enterframe = function(){
 
 let player_enterframe = function(){
   step += 1;
+  sync_info();
   if (game.input.left){
     this.x -= speed;
     if (this.x <= 150) this.x = 150;

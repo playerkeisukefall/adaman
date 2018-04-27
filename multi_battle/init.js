@@ -22,6 +22,11 @@ const user_id = user_info_data[0][1];
 console.log("user_name: ", user_name);
 console.log("user_id: ", user_id);
 
+const client = require("socket.io-client");
+const server_path = path.join(__dirname, "../info/server_url.txt");
+const server_url = fs.readFileSync(server_path, "utf-8");
+const socket = client.connect(server_url);
+
 const window_width = 800;
 const window_height = 600;
 

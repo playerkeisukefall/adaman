@@ -1,40 +1,4 @@
-let bullet_enterframe = function(){
-  this.y -= b_speed;
-  if(this.y < 0) {
-    this.parentNode.removeChild(this);
-  }
-}
 
-let player_enterframe = function(){
-  if (game.input.left) this.x -= speed;
-  if (this.x <= 150) this.x = 150;
-  if (game.input.right) this.x += speed;
-  if (this.x >= 600) this.x = 600;
-  if (game.input.space){
-    if(shot_available == true){
-      bullet[b_id] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png");
-      bullet[b_id].on('enterframe', bullet_enterframe);
-      b_id += 1;
-      shot_available = false;
-    }
-  }
-  if (game.input.up){
-    console.log(bullet);
-  }
-  if (game.input.down){
-    console.log(bullet.length);
-    console.log(bullet_exist);
-  }
-  if(shot_available == false){
-    interval_count += 1;
-    if(interval_count >= interval){
-      shot_available = true;
-      interval_count = 0;
-      console.log("shot available")
-    }
-  }
-  bullet_exist = update_bullet_exist(bullet);
-}
 
 enchant(); //enchant.jsを使い始めるためのおまじない
 let game;
@@ -46,9 +10,13 @@ window.onload = function() {
     game.onload = function() { //準備が整ったら
       game.keybind(32, 'space');
       game.keybind(27, 'esc');
+      game.keybind(65, 'key_a');
+      game.keybind(83, 'key_s');
+      game.keybind(68, 'key_d');
 
-      left_bar = create_sprite({w:150,h:600}, {x:0,y:0}, "fig/side.png");
-      right_bar = create_sprite({w:150,h:600}, {x:650,y:0}, "fig/side.png");
+      back = create_sprite({w:500,h:600}, {x:150,y:0}, "fig/back2.png");
+      left_bar = create_sprite({w:150,h:600}, {x:0,y:0}, "fig/side2.png");
+      right_bar = create_sprite({w:150,h:600}, {x:650,y:0}, "fig/side2.png", undefined, undefined, 180);
       H = create_sprite({w:16,h:16}, {x:680,y:30}, "fig/font0.png", 40, {x:1.5,y:1.5});
       P = create_sprite({w:16,h:16}, {x:700,y:30}, "fig/font0.png", 48, {x:1.5,y:1.5});
       hp_bar = create_sprite({w:90,h:20}, {x:680,y:50}, "fig/hp.png", 0);

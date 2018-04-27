@@ -17,6 +17,18 @@ const special = Number(status_data[0][5]);
 const window_width = 800;
 const window_height = 600;
 
+let back;
+let left_bar;
+let right_bar, player, opponent, hp_bar, H, P;
+let s_normal, s_power, s_double;
+let s_normal_charge, s_power_charge, s_double_charge;
+let bullet = [];
+let bullet_exist = [];
+let b_id = 0; // bullet id
+let interval_count = 0;
+let shot_available = true;
+
+
 // 弾の設定
 const bulle_class = {
   "normal": {
@@ -43,29 +55,26 @@ fs.readdir(fig_path, function(err, files){
 });
 
 
-function update_bullet_exist(bullet){
+function update_bullet(){
   let len = bullet.length;
-  let bullet_exist = [];
+  b_id = len;
+  let rm_index;
   for(let i=0; i<len; i++){
     if(0 <= bullet[i].y && bullet[i].y <= window_height)
-      bullet_exist.push(1);
-    else
-      bullet_exist.push(0);
+      bullet_exist[i] = 1;
+    else{
+      bullet_exist[i] = 0;
+      rm_index = i;
+    }
   }
-  return bullet_exist;
+  if(rm_index != undefined){
+    bullet.splice(rm_index,1);
+    bullet_exist.splice(rm_index,1);
+    b_id -= 1;
+  }
 }
 
-let left_bar;
-let right_bar, player, opponent, hp_bar, H, P;
-let s_normal, s_power, s_double;
-let s_normal_charge, s_power_charge, s_double_charge;
-let bullet = [];
-let bullet_exist = [];
-let b_id = 0; // bullet id
-let interval_count = 0;
-let shot_available = true;
-
-function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0){
+function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}){
   let sprite = new Sprite(size.w, size.h);
   sprite.x = pos.x;
   sprite.y = pos.y;
@@ -73,6 +82,8 @@ function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0){
   sprite.frame = frame;
   sprite.scale(scale.x, scale.y);
   sprite.rotation = rotation;
+  sprite.speed_x = init_speed.x;
+  sprite.speed_y = init_speed.y;
   game.rootScene.addChild(sprite)
   return sprite
 }

@@ -18,32 +18,32 @@ const window_width = 800;
 const window_height = 600;
 
 let back;
-let left_bar;
-let right_bar, player, opponent, hp_bar, H, P;
+let left_bar, right_bar;
+let player, opponent, hp_bar, H, P, mybullet_D, mybullet_S, mybullet_A, A, S, D, charge_A, charge_S, charge_D;
 let s_normal, s_power, s_double;
 let s_normal_charge, s_power_charge, s_double_charge;
 let bullet = [];
 let bullet_exist = [];
 let b_id = 0; // bullet id
-let interval_count = 0;
-let shot_available = true;
+let interval_ = {
+  A: Math.floor(interval * 3.0), // パワー弾
+  S: Math.floor(interval * 2.0), // ダブル弾
+  D: interval // ノーマル弾
+}
+let interval_count = {
+  A: 0,
+  S: 0,
+  D: 0
+};
+let shot_available = {
+  A: true,
+  S: true,
+  D: true
+};
+console.log(shot_available)
 
 
 // 弾の設定
-const bulle_class = {
-  "normal": {
-    "fig": "fig/icon1.png",
-    "frame": 2
-  },
-  "power": {
-    "fig": "fig/icon1.png",
-    "frame": 3
-  },
-  "double": {
-    "fig": "fig/icon1.png",
-    "frame": 4
-  }
-}
 
 const fig_path = path.join(__dirname, "fig/.");
 let fig_list;

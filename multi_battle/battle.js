@@ -44,6 +44,7 @@ window.onload = function() {
       mybullet_A.on('enterframe', mybullet_A_enterframe);
       mybullet_S.on('enterframe', mybullet_S_enterframe);
       mybullet_D.on('enterframe', mybullet_D_enterframe);
+
     }
     game.start(); //ゲーム開始
 }

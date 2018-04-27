@@ -13,13 +13,25 @@ const b_speed = Number(status_data[0][2])*2 + 4; // 6 ~ 24
 const interval = 45 - Number(status_data[0][3])*3; // 42 ~ 15
 const hp = Number(status_data[0][4])*6 + 24; // 30 ~ 84
 
+const user_info_path = path.join(__dirname, "../info/user_info.csv")
+const user_info_csv_data = fs.readFileSync(user_info_path, "utf-8");
+const user_info_tmp = new CSV(user_info_csv_data, {header:false});
+const user_info_data = user_info_tmp.parse();
+const user_name = user_info_data[0][0];
+const user_id = user_info_data[0][1];
+console.log("user_name: ", user_name);
+console.log("user_id: ", user_id);
+
 const window_width = 800;
 const window_height = 600;
 
+let opponent;
+
 let step = 0;
+let lose = false;
 let back;
 let left_bar, right_bar;
-let player, opponent, hp_bar, H, P, mybullet_D, mybullet_S, mybullet_A, A, S, D, charge_A, charge_S, charge_D;
+let player, hp_bar, H, P, mybullet_D, mybullet_S, mybullet_A, A, S, D, charge_A, charge_S, charge_D;
 let s_normal, s_power, s_double;
 let s_normal_charge, s_power_charge, s_double_charge;
 let bullet = [];
@@ -40,6 +52,11 @@ let shot_available = {
   S: true,
   D: true
 };
+let bullet_pow = {
+  A: Math.floor(power * 2.0), // パワー弾
+  S: Math.floor(power * 0.5), // ダブル弾
+  D: power // ノーマル弾
+}
 
 
 // 弾の設定
@@ -73,7 +90,7 @@ function update_bullet(){
   }
 }
 
-function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}, power=0){
+function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}, bul_power=0){
   let sprite = new Sprite(size.w, size.h);
   sprite.x = pos.x;
   sprite.y = pos.y;
@@ -83,6 +100,9 @@ function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, ini
   sprite.rotation = rotation;
   sprite.speed_x = init_speed.x;
   sprite.speed_y = init_speed.y;
+  sprite.scale_x = scale.x;
+  sprite.scale_y = scale.y
+  sprite.bul_power = bul_power;
   game.rootScene.addChild(sprite)
   return sprite
 }

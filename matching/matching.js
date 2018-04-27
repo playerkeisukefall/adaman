@@ -124,6 +124,7 @@ function ready(opponent_id){
   }, 1000);
   socket.on("lets_battle", function(data){
     console.log(data);
+    location.href = "../multi_battle/battle.html";
   })
-  //location.href = "../multi_battle/battle.html";
+
 }

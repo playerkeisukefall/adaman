@@ -64,7 +64,7 @@ let bullet_pow = {
 }
 
 
-// 弾の設定
+
 
 const fig_path = path.join(__dirname, "fig/.");
 let fig_list;

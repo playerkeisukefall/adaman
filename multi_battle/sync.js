@@ -1,6 +1,5 @@
 function update_opponent(op_info){
-  console.log(op_info.x);
-  opponent.x = 800 - op_info.x;
+  opponent.x = 800 - op_info.x - 70;
 }
 
 function sync_info(){

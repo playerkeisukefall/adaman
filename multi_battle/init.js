@@ -40,8 +40,10 @@ let player, hp_bar, H, P, mybullet_D, mybullet_S, mybullet_A, A, S, D, charge_A,
 let s_normal, s_power, s_double;
 let s_normal_charge, s_power_charge, s_double_charge;
 let bullet = [];
+let op_bullet = [];
 let bullet_exist = [];
-let b_id = 0; // bullet id
+let b_id = 1;
+let b_len = 0;
 let interval_ = {
   A: Math.floor(interval * 3.0), // パワー弾
   S: Math.floor(interval * 2.0), // ダブル弾
@@ -78,7 +80,7 @@ fs.readdir(fig_path, function(err, files){
 
 function update_bullet(){
   let len = bullet.length;
-  b_id = len;
+  b_len = len;
   let rm_index;
   for(let i=0; i<len; i++){
     if(0 <= bullet[i].y && bullet[i].y <= window_height)
@@ -91,11 +93,11 @@ function update_bullet(){
   if(rm_index != undefined){
     bullet.splice(rm_index,1);
     bullet_exist.splice(rm_index,1);
-    b_id -= 1;
+    b_len -= 1;
   }
 }
 
-function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}, bul_power=0){
+function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}, bul_power=0, b_id=0){
   let sprite = new Sprite(size.w, size.h);
   sprite.x = pos.x;
   sprite.y = pos.y;
@@ -108,6 +110,7 @@ function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, ini
   sprite.scale_x = scale.x;
   sprite.scale_y = scale.y
   sprite.bul_power = bul_power;
+  sprite.b_id = b_id;
   game.rootScene.addChild(sprite)
   return sprite
 }

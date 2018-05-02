@@ -54,24 +54,31 @@ let player_enterframe = function(){
   }
   if (game.input.key_d){
     if(shot_available.D == true){
-      bullet[b_id] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", undefined, undefined, undefined, {x:0,y:-b_speed}, bullet_pow.D);
-      bullet[b_id].on('enterframe', normal_enterframe);
+      b_len = bullet.length;
+      bullet[b_len] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", undefined, undefined, undefined, {x:0,y:-b_speed}, bullet_pow.D, b_id);
+      b_id += 1;
+      bullet[b_len].on('enterframe', normal_enterframe);
       shot_available.D = false;
     }
   }
   if (game.input.key_s){
     if(shot_available.S == true){
-      bullet[b_id] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", 0, {x:0.7,y:0.7}, undefined, {x:b_speed/2,y:-b_speed/2}, bullet_pow.S);
-      bullet[b_id+1] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", 0, {x:0.7,y:0.7}, undefined, {x:-b_speed/2,y:-b_speed/2}, bullet_pow.S);
-      bullet[b_id].on('enterframe', double1_enterframe);
-      bullet[b_id+1].on('enterframe', double2_enterframe);
+      b_len = bullet.length;
+      bullet[b_len] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", 0, {x:0.7,y:0.7}, undefined, {x:b_speed/2,y:-b_speed/2}, bullet_pow.S, b_id);
+      b_id += 1;
+      bullet[b_len+1] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", 0, {x:0.7,y:0.7}, undefined, {x:-b_speed/2,y:-b_speed/2}, bullet_pow.S, b_id);
+      b_id += 1;
+      bullet[b_len].on('enterframe', double1_enterframe);
+      bullet[b_len+1].on('enterframe', double2_enterframe);
       shot_available.S = false;
     }
   }
   if (game.input.key_a){
     if(shot_available.A == true){
-      bullet[b_id] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_red.png", undefined, {x:1.5,y:1.5}, undefined, {x:0,y:-b_speed*1.3}, bullet_pow.A);
-      bullet[b_id].on('enterframe', power_enterframe);
+      b_len = bullet.length;
+      bullet[b_len] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_red.png", undefined, {x:1.5,y:1.5}, undefined, {x:0,y:-b_speed*1.3}, bullet_pow.A, b_id);
+      b_id += 1;
+      bullet[b_len].on('enterframe', power_enterframe);
       shot_available.A = false;
     }
   }

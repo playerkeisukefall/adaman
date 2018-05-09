@@ -67,7 +67,7 @@ function update_bullet(){
   let rm_index;
   for(let i=0; i<len; i++){
     if(0 <= bullet[i].y && bullet[i].y <= window_height)
-      bullet_exist[i] = bullet[i].bul_power;
+      bullet_exist[i] = bullet[i].b_id;
     else{
       bullet_exist[i] = 0;
       rm_index = i;

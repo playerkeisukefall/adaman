@@ -40,7 +40,6 @@ let player, hp_bar, H, P, mybullet_D, mybullet_S, mybullet_A, A, S, D, charge_A,
 let s_normal, s_power, s_double;
 let s_normal_charge, s_power_charge, s_double_charge;
 let bullet = [];
-let op_bullet = [];
 let bullet_exist = [];
 let b_id = 1;
 let b_len = 0;
@@ -102,6 +101,7 @@ function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, ini
   sprite.x = pos.x;
   sprite.y = pos.y;
   sprite.image = game.assets[img];
+  sprite.img_file = img;
   sprite.frame = frame;
   sprite.scale(scale.x, scale.y);
   sprite.rotation = rotation;

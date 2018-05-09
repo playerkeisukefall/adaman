@@ -1,28 +1,20 @@
+let op_bullet = [];
 
-function inverse_pos(bullet_info_arr){
-  let op_bullet_info_arr = [];
-  for(let i=0; i<bullet_info_arr.length; i++){
-    op_bullet_info_arr.push(bullet_info_arr[i]);
-    op_bullet_info_arr[i].x = 800 - op_bullet_info_arr[i].x - op_bullet_info_arr[i].scale_x*16;
-    op_bullet_info_arr[i].y = 800 - op_bullet_info_arr[i].y - op_bullet_info_arr[i].scale_y*16;
-  }
-  return op_bullet_info_arr;
-}
 
 function update_opponent(op_info){
   opponent.x = 800 - op_info.x - 70;
 }
 
-function check_op_b_exist(op_b_id){
+function isExistBullet(op_b_id){
   for(let i=0; i<op_bullet.length; i++){
-    if(op_bullet[i].b_id == op_b_id) return op_bullet[i];
+    if(op_b_id == op_bullet[i].b_id) return true;
   }
   return false;
 }
 
-let op_bulet_enterframe = function(){
-  this.x += this.speed_x;
-  this.y += this.speed_y;
+let op_b_enterframe = function(){
+  this.x -= this.speed_x;
+  this.y -= this.speed_y;
   if(this.intersect(right_bar) || this.intersect(left_bar)){
     this.speed_x = -1 * this.speed_x;
   }
@@ -31,21 +23,23 @@ let op_bulet_enterframe = function(){
   }
 }
 
-function update_opponent_bullet(obia, op_b_exist){ // obia: op_bullet_info_arr
-  for(let i in op_b_exist){
-    let op_b = check_op_b_exist(op_b_exist[i])
-    if(op_b != false){ // 存在する
-      op_b.x = obia[i].x;
-      op_b.y = obia[i].y;
-    }
-    else{ // 存在しない
-      console.log("false!")
-      let op_b_len = op_bullet.length;
-      op_bullet[op_b_len] = create_sprite({w:16,h:16}, {x:obia[i].x,y:obia[i].y}, obia.image, obia.frame, {x:obia.scale_x,y:obia.scale_y}, undefined, {x:0,y:obia.speed_y}, obia.bul_power, obia.b_id);
-      op_bullet[op_b_len].on('enterframe', op_bulet_enterframe);
+function add_op_bullet(op_b){
+  let op_b_len = op_b.length;
+  let init_x = 799 - (op_b.x + 16*op_b.scale_x);
+  let init_y = 799 - (op_b.y + 16*op_b.scale_y);
+  op_bullet[op_b_len] = create_sprite({w:16,h:16}, {x:init_x,y:init_y}, op_b.img_file, undefined, {x:op_b.scale_x,y:op_b.scale_y}, undefined, {x:op_b.speed_x,y:op_b.speed_y}, op_b.bul_power, -op_b.b_id);
+  if()
+  op_bullet[b_len].on('enterframe', op_b_enterframe);
+}
+
+function update_op_bullet(op_bullet_info, op_bullet_exist){
+  let num_of_op_bullet = op_bullet_exist.length;
+  let rm_index;
+  for(let i=0; i<num_of_op_bullet; i++){
+    if(isExistBullet(op_bullet_exist[i]) == false){
+      add_op_bullet(op_bullet_info[i]);
     }
   }
-
 }
 
 function sync_info(){
@@ -54,7 +48,18 @@ function sync_info(){
     let bullet_info_arr = [];
     for(let i=0; i<bullet.length; i++){
       let b = bullet[i];
-      bullet_info_arr.push([b.x, b.y, b.image, b.frame, b.scale_x, b.scale_y, b.rotation, b.speed_x, b.speed_y, b.bul_power, b.b_id]);
+      bullet_info_arr.push({
+        x: b.x,
+        y: b.y,
+        img_file: b.img_file,
+        frame: b.frame,
+        scale_x: b.scale_x,
+        scale_y: b.scale_y,
+        rotation: b.rotation,
+        speed_x: b.speed_x,
+        speed_y: b.speed_y,
+        bul_power: b.bul_power,
+        b_id: b.b_id});
     }
     let plr = {
       x: player.x,
@@ -71,9 +76,7 @@ function sync_info(){
 
   socket.on("on_battle_get", function(data){
     update_opponent(data.player_info);
-    let op_bullet_info_arr = inverse_pos(data.bullet_info);
-    console.log(data.bullet_exist);
-    update_opponent_bullet(op_bullet_info_arr, data.bullet_exist);
+    update_op_bullet(data.bullet_info, data.bullet_exist);
   })
 
 }

@@ -37,6 +37,7 @@ window.onload = function() {
       shot_available = true;
       */
       player.on('enterframe', player_enterframe);
+      opponent.on('enterframe', opponent_enterframe)
       hp_bar.on('enterframe', hp_bar_enterframe);
       charge_A.on('enterframe', charge_A_enterframe);
       charge_S.on('enterframe', charge_S_enterframe);

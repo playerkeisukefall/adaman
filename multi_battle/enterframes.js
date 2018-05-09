@@ -1,4 +1,4 @@
-let normal_enterframe = function(){
+let bullet_enterframe = function(){
   this.x += this.speed_x;
   this.y += this.speed_y;
   if(this.intersect(right_bar) || this.intersect(left_bar)){
@@ -7,37 +7,11 @@ let normal_enterframe = function(){
   if(this.y < 0 || 600 < this.y) {
     this.parentNode.removeChild(this);
   }
-}
-
-let double1_enterframe = function(){
-  this.x += this.speed_x;
-  this.y += this.speed_y;
-  if(this.intersect(right_bar) || this.intersect(left_bar)){
-    this.speed_x = -1 * this.speed_x;
-  }
-  if(this.y < 0 || 600 < this.y) {
+  // 衝突判定
+  if(this.intersect(opponent)){
     this.parentNode.removeChild(this);
-  }
-}
-let double2_enterframe = function(){
-  this.x += this.speed_x;
-  this.y += this.speed_y;
-  if(this.intersect(right_bar) || this.intersect(left_bar)){
-    this.speed_x = -1 * this.speed_x;
-  }
-  if(this.y < 0 || 600 < this.y) {
-    this.parentNode.removeChild(this);
-  }
-}
-
-let power_enterframe = function(){
-  this.x += this.speed_x;
-  this.y += this.speed_y;
-  if(this.intersect(right_bar) || this.intersect(left_bar)){
-    this.speed_x = -1 * this.speed_x;
-  }
-  if(this.y < 0 || 600 < this.y) {
-    this.parentNode.removeChild(this);
+    op_damaged = true;
+    op_damaged_fin_step = step + 20;
   }
 }
 
@@ -57,7 +31,7 @@ let player_enterframe = function(){
       b_len = bullet.length;
       bullet[b_len] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", undefined, undefined, undefined, {x:0,y:-b_speed}, bullet_pow.D, b_id);
       b_id += 1;
-      bullet[b_len].on('enterframe', normal_enterframe);
+      bullet[b_len].on('enterframe', bullet_enterframe);
       shot_available.D = false;
     }
   }
@@ -68,8 +42,8 @@ let player_enterframe = function(){
       b_id += 1;
       bullet[b_len+1] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_blue.png", 0, {x:0.7,y:0.7}, undefined, {x:-b_speed/2,y:-b_speed/2}, bullet_pow.S, b_id);
       b_id += 1;
-      bullet[b_len].on('enterframe', double1_enterframe);
-      bullet[b_len+1].on('enterframe', double2_enterframe);
+      bullet[b_len].on('enterframe', bullet_enterframe);
+      bullet[b_len+1].on('enterframe', bullet_enterframe);
       shot_available.S = false;
     }
   }
@@ -78,7 +52,7 @@ let player_enterframe = function(){
       b_len = bullet.length;
       bullet[b_len] = create_sprite({w:16,h:16}, {x:player.x+27,y:player.y-8}, "fig/b_red.png", undefined, {x:1.5,y:1.5}, undefined, {x:0,y:-b_speed*1.3}, bullet_pow.A, b_id);
       b_id += 1;
-      bullet[b_len].on('enterframe', power_enterframe);
+      bullet[b_len].on('enterframe', bullet_enterframe);
       shot_available.A = false;
     }
   }
@@ -102,21 +76,24 @@ let player_enterframe = function(){
       }
     }
   }
-  /*
-  if(shot_available == false){
-    interval_count += 1;
-    if(interval_count >= interval){
-      shot_available = true;
-      interval_count = 0;
-      console.log("shot available")
+  update_bullet();
+
+  if(damaged == true){
+    if(step <= damaged_fin_step){
+      if(this.frame == 0)this.frame = 1;
+      else this.frame = 0;
+    }
+    else{
+      damaged = false;
+      this.frame = 0;
     }
   }
-  */
-  update_bullet();
 }
 
 let hp_bar_enterframe = function(){
-  //this.frame += 1;
+  let frame = Math.floor((hp * hp_init**-1) * 30);
+  frame = 30 - frame;
+  this.frame = frame;
 }
 
 
@@ -144,4 +121,17 @@ let mybullet_S_enterframe = function(){
 let mybullet_D_enterframe = function(){
   if(shot_available.D == true) mybullet_D.frame = 0;
   else mybullet_D.frame = 0;
+}
+
+let opponent_enterframe = function(){
+  if(op_damaged == true){
+    if(step <= op_damaged_fin_step){
+      if(this.frame == 0)this.frame = 1;
+      else this.frame = 0;
+    }
+    else{
+      op_damaged = false;
+      this.frame = 0;
+    }
+  }
 }

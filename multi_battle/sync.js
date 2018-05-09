@@ -21,6 +21,15 @@ let op_b_enterframe = function(){
   if(this.y < 0 || 600 < this.y) {
     this.parentNode.removeChild(this);
   }
+  // 衝突判定
+  if(this.intersect(player)){
+    this.parentNode.removeChild(this);
+    damaged = true;
+    damaged_fin_step = step + 20;
+    hp -= this.bul_power;
+    if(hp <= 0) hp = 0;
+    console.log(hp);
+  }
 }
 
 function rm_op_bullet(op_bullet_exist){

@@ -11,7 +11,8 @@ const power = Number(status_data[0][0]) + 4; // 5 ~ 14
 const speed = Number(status_data[0][1]) + 4; // 6 ~ 24
 const b_speed = Number(status_data[0][2])*2 + 4; // 6 ~ 24
 const interval = 45 - Number(status_data[0][3])*3; // 42 ~ 15
-const hp = Number(status_data[0][4])*6 + 24; // 30 ~ 84
+let hp = Number(status_data[0][4])*6 + 24; // 30 ~ 84
+const hp_init = hp;
 
 const user_info_path = path.join(__dirname, "../info/user_info.csv")
 const user_info_csv_data = fs.readFileSync(user_info_path, "utf-8");
@@ -43,6 +44,10 @@ let bullet = [];
 let bullet_exist = [];
 let b_id = 1;
 let b_len = 0;
+let damaged = false;
+let damaged_fin_step;
+let op_damaged = false;
+let op_damaged_fin_step;
 let interval_ = {
   A: Math.floor(interval * 3.0), // パワー弾
   S: Math.floor(interval * 2.0), // ダブル弾

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+'''
 from PIL import Image, ImageDraw, ImageFont
 
 im = Image.new("RGB", (90, 600), (100, 100, 100))
@@ -28,6 +29,7 @@ for i in range(29):
     j_max += 1
 im.show()
 im.save('pil.png', quality=95)
+'''
 
 
 ''' ダブルだんアイコン 右側 何もないの追加
@@ -299,11 +301,11 @@ for i in range(8):
 im.save('pil.png', quality=95)
 '''
 
-''' HP バー
-# -*- coding: utf-8 -*-
+'''HP バー
+'''
 from PIL import Image, ImageDraw, ImageFont
 
-im = Image.new("RGB", (90, 600), (0, 0, 0))
+im = Image.new("RGB", (90, 620), (0, 0, 0))
 draw = ImageDraw.Draw(im)
 
 x1 = 0
@@ -332,4 +334,3 @@ for i in range(30):
     y2 += 20
     j_max -= 1
 im.save('pil.png', quality=95)
-'''

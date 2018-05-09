@@ -10,13 +10,7 @@ function isExistFile(file) {
 }
 
 const fig_path = path.join(__dirname, "fig/.");
-let fig_list;
-fs.readdir(fig_path, function(err, files){
-    fig_list = files.filter(function(file){
-        return file
-    })
-    console.log(fig_list);
-});
+const fig_list = fs.readdirSync(fig_path);
 
 function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, init_speed={x:0,y:0}, bul_power=0){
   let sprite = new Sprite(size.w, size.h);

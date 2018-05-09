@@ -68,13 +68,7 @@ let bullet_pow = {
 
 
 const fig_path = path.join(__dirname, "fig/.");
-let fig_list;
-fs.readdir(fig_path, function(err, files){
-    fig_list = files.filter(function(file){
-        return file
-    })
-    console.log(fig_list);
-});
+const fig_list = fs.readdirSync(fig_path);
 
 
 function update_bullet(){

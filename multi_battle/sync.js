@@ -23,21 +23,38 @@ let op_b_enterframe = function(){
   }
 }
 
+function rm_op_bullet(op_bullet_exist){
+  let len = op_bullet.length;
+  for(let i=0; i<op_bullet.length; i++){
+    let flag = false;
+    for(let j=0; j<op_bullet_exist.length; j++){
+      if(op_bullet[i].b_id == op_bullet_exist[i]){
+        flag = true;
+      }
+    }
+    if(flag == false){
+      op_bullet.splice(i,1);
+    }
+  }
+}
+
 function add_op_bullet(op_b){
-  let op_b_len = op_b.length;
+  let op_b_len = op_bullet.length;
+  //console.log(op_b_len);
   let init_x = 799 - (op_b.x + 16*op_b.scale_x);
-  let init_y = 799 - (op_b.y + 16*op_b.scale_y);
-  op_bullet[op_b_len] = create_sprite({w:16,h:16}, {x:init_x,y:init_y}, op_b.img_file, undefined, {x:op_b.scale_x,y:op_b.scale_y}, undefined, {x:op_b.speed_x,y:op_b.speed_y}, op_b.bul_power, -op_b.b_id);
-  if()
-  op_bullet[b_len].on('enterframe', op_b_enterframe);
+  let init_y = 599 - (op_b.y + 16*op_b.scale_y);
+  op_bullet[op_b_len] = create_sprite({w:16,h:16}, {x:init_x,y:init_y}, op_b.img_file, undefined, {x:op_b.scale_x,y:op_b.scale_y}, undefined, {x:op_b.speed_x,y:op_b.speed_y}, op_b.bul_power, op_b.b_id);
+  op_bullet[op_b_len].on('enterframe', op_b_enterframe);
 }
 
 function update_op_bullet(op_bullet_info, op_bullet_exist){
+  rm_op_bullet(op_bullet_exist);
   let num_of_op_bullet = op_bullet_exist.length;
   let rm_index;
   for(let i=0; i<num_of_op_bullet; i++){
     if(isExistBullet(op_bullet_exist[i]) == false){
       add_op_bullet(op_bullet_info[i]);
+      console.log(op_bullet_exist);
     }
   }
 }

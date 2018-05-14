@@ -115,7 +115,9 @@ function sync_info(){
       count_down();
       count_down_start = true;
     }
-    if(data.lose == true) you_win();
+    if(data.lose == true){
+      you_win();
+    }
     update_opponent(data.player_info);
     update_op_bullet(data.bullet_info, data.bullet_exist);
   })

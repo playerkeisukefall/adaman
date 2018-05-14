@@ -52,7 +52,6 @@ let count_down_start = false;
 let start = false;
 let finish = false;
 let explosion;
-let lose = false;
 let interval_ = {
   A: Math.floor(interval * 3.0), // パワー弾
   S: Math.floor(interval * 2.0), // ダブル弾

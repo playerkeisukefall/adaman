@@ -41,9 +41,9 @@ function count_down() {
 }
 
 function you_win(){
-
+  create_sprite({w:525,h:110}, {x:130,y:250}, "fig/you_win.png", 0, {x:0.4,y:0.4});
 }
 
 function you_lose(){
-  create_sprite({w:562,h:107}, {x:120,y:250}, "fig/you_lose.png", 0, {x:0.4,y:0.4});
+  create_sprite({w:578,h:110}, {x:120,y:250}, "fig/you_lose.png", 0, {x:0.4,y:0.4});
 }

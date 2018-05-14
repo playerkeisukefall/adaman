@@ -27,8 +27,14 @@ let op_b_enterframe = function(){
     damaged = true;
     damaged_fin_step = step + 20;
     hp -= this.bul_power;
-    if(hp <= 0) hp = 0;
-    //console.log(hp);
+    if(hp <= 0){
+      hp = 0;
+      finish = true;
+      shot_available.A = false;
+      shot_available.S = false;
+      shot_available.D = false;
+      explos();
+    }
   }
 }
 

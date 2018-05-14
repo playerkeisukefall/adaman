@@ -100,6 +100,17 @@ let player_enterframe = function(){
   }
 }
 
+function explos(){
+  explosion = create_sprite({w:16,h:16}, {x:player.x,y:player.y}, "fig/effect0.png", 0, {x:5,y:5});
+  explosion.on('enterframe', () => {
+    if(this.frame == 4) this.parentNode.removeChild(this);
+    else{
+      this.frame += 1;
+      player.parentNode.removeChild(player);
+    }
+  })
+}
+
 let hp_bar_enterframe = function(){
   let frame = Math.floor((hp * hp_init**-1) * 30);
   frame = 30 - frame;

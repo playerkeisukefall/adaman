@@ -81,8 +81,10 @@ function update_bullet(){
   b_len = len;
   let rm_index;
   for(let i=0; i<len; i++){
-    if(0 <= bullet[i].y && bullet[i].y <= window_height)
+    if(0 <= bullet[i].y && bullet[i].y <= window_height){
       bullet_exist[i] = bullet[i].b_id;
+      console.log(bullet[i].y);
+    }
     else{
       //bullet_exist[i] = 0;
       rm_index = i;
@@ -111,5 +113,6 @@ function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, ini
   sprite.bul_power = bul_power;
   sprite.b_id = b_id;
   game.rootScene.addChild(sprite)
+  console.log("(" + pos.x + "," + pos.y + ")");
   return sprite
 }

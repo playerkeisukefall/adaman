@@ -61,7 +61,7 @@ function update_bullet(){
     if(0 <= bullet[i].y && bullet[i].y <= window_height)
       bullet_exist[i] = bullet[i].b_id;
     else{
-      bullet_exist[i] = 0;
+      //bullet_exist[i] = 0;
       rm_index = i;
     }
   }

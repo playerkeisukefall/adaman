@@ -1,3 +1,12 @@
+function rm_bullet(b_id){
+  for(let i=0; i<bullet.length; i++){
+    if(bullet[i].b_id == b_id){
+      bullet.splice(i,1);
+      bullet_exist.splice(i,1);
+    }
+  }
+}
+
 let bullet_enterframe = function(){
   this.x += this.speed_x;
   this.y += this.speed_y;
@@ -10,6 +19,7 @@ let bullet_enterframe = function(){
   // 衝突判定
   if(this.intersect(opponent)){
     this.parentNode.removeChild(this);
+    rm_bullet(this.b_id);
     op_damaged = true;
     op_damaged_fin_step = step + 20;
   }

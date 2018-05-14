@@ -67,7 +67,8 @@ let player_enterframe = function(){
     }
   }
   if (game.input.space){
-    console.log(shot_available.A)
+    if(win == true || lose == true)
+      location.href = "../title/title.html";
   }
   if (game.input.up){
     console.log(bullet);
@@ -98,6 +99,18 @@ let player_enterframe = function(){
       this.frame = 0;
     }
   }
+}
+
+function op_explos(){
+  opponent.parentNode.removeChild(opponent);
+  game.fps = 10;
+  explosion = create_sprite({w:16,h:16}, {x:opponent.x+35,y:opponent.y+35}, "fig/effect0.png", 0, {x:8,y:8});
+  explosion.on('enterframe', function(){
+    if(this.frame == 4){
+      this.parentNode.removeChild(this);
+    }
+    this.frame += 1;
+  })
 }
 
 function explos(){

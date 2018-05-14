@@ -34,6 +34,7 @@ const window_height = 600;
 let opponent;
 
 let step = 0;
+let win = false;
 let lose = false;
 let back;
 let left_bar, right_bar;

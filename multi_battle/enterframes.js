@@ -67,8 +67,10 @@ let player_enterframe = function(){
     }
   }
   if (game.input.space){
-    if(win == true || lose == true)
+    if(win == true || lose == true){
+      console.log("win: " + win + " / lose: " + lose);
       location.href = "../title/title.html";
+    }
   }
   if (game.input.up){
     console.log(bullet);
@@ -89,7 +91,7 @@ let player_enterframe = function(){
   }
   update_bullet();
 
-  if(damaged == true){
+  if(damaged == true && lose == false){
     if(step <= damaged_fin_step){
       if(this.frame == 0)this.frame = 1;
       else this.frame = 0;
@@ -102,7 +104,7 @@ let player_enterframe = function(){
 }
 
 function op_explos(){
-  opponent.parentNode.removeChild(opponent);
+  opponent.frame = 1;
   game.fps = 10;
   explosion = create_sprite({w:16,h:16}, {x:opponent.x+35,y:opponent.y+35}, "fig/effect0.png", 0, {x:8,y:8});
   explosion.on('enterframe', function(){
@@ -114,7 +116,7 @@ function op_explos(){
 }
 
 function explos(){
-  player.parentNode.removeChild(player);
+  player.frame = 1;
   game.fps = 10;
   explosion = create_sprite({w:16,h:16}, {x:player.x+35,y:player.y+35}, "fig/effect0.png", 0, {x:8,y:8});
   explosion.on('enterframe', function(){

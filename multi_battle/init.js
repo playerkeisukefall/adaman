@@ -48,6 +48,9 @@ let damaged = false;
 let damaged_fin_step;
 let op_damaged = false;
 let op_damaged_fin_step;
+let count_down_start = false;
+let start = false;
+let finish = false;
 let interval_ = {
   A: Math.floor(interval * 3.0), // パワー弾
   S: Math.floor(interval * 2.0), // ダブル弾
@@ -59,9 +62,9 @@ let interval_count = {
   D: 0
 };
 let shot_available = {
-  A: true,
-  S: true,
-  D: true
+  A: false,
+  S: false,
+  D: false
 };
 let bullet_pow = {
   A: Math.floor(power * 2.0), // パワー弾
@@ -83,7 +86,6 @@ function update_bullet(){
   for(let i=0; i<len; i++){
     if(0 <= bullet[i].y && bullet[i].y <= window_height){
       bullet_exist[i] = bullet[i].b_id;
-      console.log(bullet[i].y);
     }
     else{
       //bullet_exist[i] = 0;
@@ -113,6 +115,5 @@ function create_sprite(size, pos, img, frame=0, scale={x:1,y:1}, rotation=0, ini
   sprite.bul_power = bul_power;
   sprite.b_id = b_id;
   game.rootScene.addChild(sprite)
-  console.log("(" + pos.x + "," + pos.y + ")");
   return sprite
 }

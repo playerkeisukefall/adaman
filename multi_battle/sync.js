@@ -28,7 +28,7 @@ let op_b_enterframe = function(){
     damaged_fin_step = step + 20;
     hp -= this.bul_power;
     if(hp <= 0) hp = 0;
-    console.log(hp);
+    //console.log(hp);
   }
 }
 
@@ -50,8 +50,8 @@ function rm_op_bullet(op_bullet_exist){
 function add_op_bullet(op_b){
   let op_b_len = op_bullet.length;
   //console.log(op_b_len);
-  let init_x = 799 - (op_b.x + 16*op_b.scale_x);
-  let init_y = 599 - (op_b.y + 16*op_b.scale_y);
+  let init_x = 799 - (op_b.x + 16);
+  let init_y = 599 - (op_b.y + 16);
   op_bullet[op_b_len] = create_sprite({w:16,h:16}, {x:init_x,y:init_y}, op_b.img_file, undefined, {x:op_b.scale_x,y:op_b.scale_y}, undefined, {x:op_b.speed_x,y:op_b.speed_y}, op_b.bul_power, op_b.b_id);
   op_bullet[op_b_len].on('enterframe', op_b_enterframe);
 }
@@ -63,10 +63,11 @@ function update_op_bullet(op_bullet_info, op_bullet_exist){
   for(let i=0; i<num_of_op_bullet; i++){
     if(isExistBullet(op_bullet_exist[i]) == false){
       add_op_bullet(op_bullet_info[i]);
-      console.log(op_bullet_exist);
+      //console.log(op_bullet_exist);
     }
   }
 }
+
 
 function sync_info(){
 
@@ -101,6 +102,10 @@ function sync_info(){
   }
 
   socket.on("on_battle_get", function(data){
+    if(count_down_start == false){
+      count_down();
+      count_down_start = true;
+    }
     update_opponent(data.player_info);
     update_op_bullet(data.bullet_info, data.bullet_exist);
   })

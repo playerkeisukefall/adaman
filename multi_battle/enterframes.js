@@ -77,7 +77,7 @@ let player_enterframe = function(){
   }
 
   for(let but in interval_){
-    if(shot_available[but] == false){
+    if(start == true && shot_available[but] == false){
       interval_count[but] += 1;
       if(interval_count[but] >= interval_[but]){
         shot_available[but] = true;

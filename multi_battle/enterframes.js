@@ -77,7 +77,7 @@ let player_enterframe = function(){
   }
 
   for(let but in interval_){
-    if(start == true && shot_available[but] == false){
+    if(start == true && finish == false && shot_available[but] == false){
       interval_count[but] += 1;
       if(interval_count[but] >= interval_[but]){
         shot_available[but] = true;
@@ -101,13 +101,14 @@ let player_enterframe = function(){
 }
 
 function explos(){
-  explosion = create_sprite({w:16,h:16}, {x:player.x,y:player.y}, "fig/effect0.png", 0, {x:5,y:5});
-  explosion.on('enterframe', () => {
-    if(this.frame == 4) this.parentNode.removeChild(this);
-    else{
-      this.frame += 1;
-      player.parentNode.removeChild(player);
+  player.parentNode.removeChild(player);
+  game.fps = 10;
+  explosion = create_sprite({w:16,h:16}, {x:player.x+35,y:player.y+35}, "fig/effect0.png", 0, {x:8,y:8});
+  explosion.on('enterframe', function(){
+    if(this.frame == 4){
+      this.parentNode.removeChild(this);
     }
+    this.frame += 1;
   })
 }
 

@@ -5,7 +5,7 @@ function display_start(){
   for(let i=0; i<start_frame.length; i++){
     pos_x = 400 + (i-2)*40;
     start_char[i] = create_sprite({w:16,h:16}, {x:pos_x,y:300}, "fig/font0.png", start_frame[i], {x:3,y:3});
-    setInterval(()=>{
+    setTimeout(()=>{
       start_char[i].parentNode.removeChild(start_char[i]);
     }, 1000);
   }
@@ -38,4 +38,12 @@ function count_down() {
     }).catch((err) => {
       console.log(err)
     });
+}
+
+function you_win(){
+
+}
+
+function you_lose(){
+  create_sprite({w:562,h:107}, {x:120,y:250}, "fig/you_lose.png", 0, {x:0.4,y:0.4});
 }

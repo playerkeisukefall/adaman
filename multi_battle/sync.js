@@ -29,11 +29,13 @@ let op_b_enterframe = function(){
     hp -= this.bul_power;
     if(hp <= 0){
       hp = 0;
-      finish = true;
       shot_available.A = false;
       shot_available.S = false;
       shot_available.D = false;
-      explos();
+      if(finish == false) explos();
+      finish = true;
+      lose = true;
+      you_lose();
     }
   }
 }
@@ -76,7 +78,7 @@ function update_op_bullet(op_bullet_info, op_bullet_exist){
 
 
 function sync_info(){
-
+  you_lose();
   if(step % 1 == 0){
     let bullet_info_arr = [];
     for(let i=0; i<bullet.length; i++){
@@ -103,7 +105,8 @@ function sync_info(){
       user_id: user_id,
       player_info: plr,
       bullet_info: bullet_info_arr,
-      bullet_exist: bullet_exist
+      bullet_exist: bullet_exist,
+      lose: lose;
     })
   }
 
@@ -112,6 +115,7 @@ function sync_info(){
       count_down();
       count_down_start = true;
     }
+    if(data.lose == true) you_win();
     update_opponent(data.player_info);
     update_op_bullet(data.bullet_info, data.bullet_exist);
   })

@@ -104,7 +104,7 @@ let player_enterframe = function(){
 }
 
 function op_explos(){
-  opponent.frame = 1;
+  opponent.parentNode.removeChild(opponent);
   game.fps = 10;
   explosion = create_sprite({w:16,h:16}, {x:opponent.x+35,y:opponent.y+35}, "fig/effect0.png", 0, {x:8,y:8});
   explosion.on('enterframe', function(){

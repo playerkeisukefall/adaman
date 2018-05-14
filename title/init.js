@@ -90,3 +90,19 @@ let bullet_enterframe = function(){
   }
 
 }
+
+// （なかったら）ステータスcsv の生成
+function isExistFile(file) {
+  try {
+    fs.statSync(file);
+    return true
+  } catch(err) {
+    if(err.code === 'ENOENT') return false
+  }
+}
+
+const status_path = path.join(__dirname, "../status/status.csv");
+if(isExistFile(status_path) != true){
+  console.log("ステータスcsvが存在しないので生成")
+  fs.writeFileSync(status_path, "1,1,1,1,1,1\n")
+}
